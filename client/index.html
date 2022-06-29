@@ -7,14 +7,25 @@
 		<title>Document</title>
 	</head>
 	<body>
+		<ul id="push-notifications"></ul>
+
 		<script type="module">
 			import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
 
 			const socket = io("http://localhost:3000");
 
 			socket.on("notification", function (data) {
-				console.log("Você recebeu uma mensagem de " + data.from);
+				createDOMNotification(data);
 			});
+
+			//Handle ui changes
+			const pushNotifications = document.getElementById("push-notifications");
+
+			function createDOMNotification(notification) {
+				const liElement = document.createElement("li");
+				liElement.innerText = "Você recebeu uma mensagem de " + notification.from;
+				pushNotifications.appendChild(liElement);
+			}
 		</script>
 	</body>
 </html>
