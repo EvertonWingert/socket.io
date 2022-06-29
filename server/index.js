@@ -1,10 +1,8 @@
-import { Server } from "socket.io";
+import { client } from './service/socket.js'
 
-const io = new Server(3000, { cors: { origin: '*' } });
-
-io.on("connection", (socket) => {
+client.on("connection", (socket) => {
     console.log("front-end id: " + socket.id);
-    io.emit("notification", { message: "hello" });
+    client.emit("notification", { message: "hello" });
 });
 
 
